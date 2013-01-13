@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<head>
+
+	<title>d3 svg test</title>
+	<style type="text/css">
+		a {
+			font: 8pt "Menlo", "Consolas", "Lucida Console", "Courier", monospace;
+			padding: 10px;
+			border: 1px solid #000;
+			z-index: 2;
+		}
+		a:link {text-decoration: none; color:#333;}
+		a:visited {text-decoration: none; color:#999;}
+		a:hover {text-decoration: none; color:#F00;}
+		a:active {text-decoration: none; color:#000;}
+		
+		svg.projects {
+			position: absolute;
+			left:0;
+			top:0;
+			z-index: -5;
+		}
+		
+		svg circle.orbcircle {
+			fill: rgba(255,255,255,1);
+			stroke: black;
+		}
+		
+		svg rect.box {
+			stroke: red;
+			fill: none;
+			stroke-width: 1;
+			shape-rendering: crispEdges;
+		}
+		
+		svg use.d3 {
+			stroke: black;
+		}
+		
+		svg #redrect {
+			fill: red;
+		}
+		
+		svg text {
+			font: 8pt "Menlo", "Consolas", "Lucida Console", "Courier", monospace;
+		}
+		
+		svg line.leader {
+			stroke: black;
+			stroke-width: 1.5	;
+		}
+	
+		
+		.x-axis path,
+		.x-axis line,
+		.y-axis path,
+		.y-axis line {
+		    fill: none;
+		    stroke: none;
+		}
+		
+		
+		.x-axis text, .y-axis text {
+		    font: 8pt "Menlo", "Consolas", "Lucida Console", "Courier", monospace;
+		}
+		
+		.x-label, y-label {
+			font-size: 9pt;
+		}
+	
+	
+	</style>
+	<script src="/js/underscore.js"></script>
+	<script src="/js/backbone.js"></script>
+	<script src="/js/modernizr.js"></script>
+	<script src="/js/d3.v3.min.js"></script>
+	<script src="/js/jquery-1.8.3.js"></script>
+
+
+</head>
+
+<body>
+
+<a href="javascript:wiggle()">wiggle!</a>
+<a href="javascript: maptype = 'random'; arrange('random');">scramble</a>
+<a href="javascript: maptype = 'date'; arrange('date')">apply dates</a>
+
+<script type="text/javascript" src="projectlist.js"></script>
+<script type="text/javascript" src="date.js"></script>
+
+<script type="text/javascript">
+
+var rtime = new Date(1, 1, 2000, 12,00,00);
+var timeout = false;
+var delta = 200;
+$(window).resize(function() {
+    rtime = new Date();
+    if (timeout === false) {
+        timeout = true;
+        setTimeout(resizeend, delta);
+    }
+});
+
+function resizeend() {
+    if (new Date() - rtime < delta) {
+        setTimeout(resizeend, delta);
+    } else {
+        timeout = false;
+/*         console.log("window: " + $(window).width() + ", " + $(window).height()); */
+        arrange(maptype);
+    }               
+}
+
+</script>
+
+</body>
